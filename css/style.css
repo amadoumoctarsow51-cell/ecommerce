@@ -1,13 +1,16 @@
-/* --- 1. Variables Globales et Réinitialisation --- */
+/* =======================================================
+   VARIABLES GLOBALES ET RESET
+======================================================= */
 :root {
-    --primary-color: #2D3748;
-    --secondary-color: #007bff;
-    --accent-color: #FF5733;
-    --background-color: #F8F9FA;
-    --light-gray: #EAECEF;
+    --primary-color: #1F2937;       /* Bleu-gris foncé pour le texte principal */
+    --secondary-color: #3B82F6;     /* Bleu vif pour boutons et liens */
+    --accent-color: #F97316;        /* Orange vif pour les prix / soldes */
+    --background-color: #F3F4F6;    /* Gris très clair pour le fond général */
+    --light-gray: #E5E7EB;          /* Gris clair pour bordures et séparateurs */
     --white: #ffffff;
-    --text-secondary: #4A5568;
-    --hover-card: #f5f6fa;
+    --shadow-color: rgba(0,0,0,0.12);
+    --font-primary: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --transition-speed: 0.3s;
 }
 
 * {
@@ -17,69 +20,94 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font-primary);
     line-height: 1.6;
-    background-color: var(--background-color);
     color: var(--primary-color);
+    background-color: var(--background-color);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* --- 2. Conteneur --- */
+/* =======================================================
+   TYPOGRAPHIE
+======================================================= */
+h1, h2, h3, h4, h5 {
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+h1 { font-size: 3rem; text-align: center; margin-bottom: 50px; letter-spacing: -1px; }
+h2 { font-size: 2rem; border-bottom: 2px solid var(--light-gray); padding-bottom: 10px; margin-bottom: 25px; }
+h3 { font-size: 1.6rem; margin-bottom: 15px; }
+p, li, span {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--primary-color);
+}
+
+.text-gray {
+    color: #6B7280;
+}
+
+/* =======================================================
+   CONTENEUR PRINCIPAL
+======================================================= */
 .container {
     width: 90%;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 30px 0;
     flex-grow: 1;
 }
 
-h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-bottom: 40px;
-    text-align: center;
-    color: var(--primary-color);
-    letter-spacing: -0.5px;
-}
-
-/* --- 3. Header et Navigation --- */
+/* =======================================================
+   HEADER ET NAVIGATION
+======================================================= */
 .main-header {
     background-color: var(--white);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    padding: 15px 0;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.main-header > div {
+.header-container {
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 15px 0;
 }
 
 .logo a {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--secondary-color);
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color var(--transition-speed);
+}
+
+.logo a:hover {
+    color: var(--accent-color);
 }
 
 .main-nav ul {
-    list-style: none;
     display: flex;
-    gap: 30px;
+    gap: 35px;
+    list-style: none;
 }
 
 .main-nav a {
-    color: var(--primary-color);
     text-decoration: none;
+    color: var(--primary-color);
     font-weight: 600;
     padding: 5px 0;
-    transition: all 0.2s;
+    transition: color var(--transition-speed), border-bottom var(--transition-speed);
 }
 
 .main-nav a:hover,
@@ -88,136 +116,243 @@ h1 {
     border-bottom: 3px solid var(--secondary-color);
 }
 
-/* --- 4. Grille de Produits --- */
+/* =======================================================
+   GRILLE DE PRODUITS
+======================================================= */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 35px;
 }
 
-/* --- 5. Cartes Produits --- */
 .product-card {
     background-color: var(--white);
-    border-radius: 12px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
     border: 1px solid var(--light-gray);
 }
 
 .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-    background-color: var(--hover-card);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.2);
 }
 
 .product-card img {
     width: 100%;
-    height: 220px;
+    height: 250px;
     object-fit: cover;
-    display: block;
-    transition: transform 0.3s, opacity 0.3s;
+    transition: transform var(--transition-speed), opacity var(--transition-speed);
 }
 
 .product-card:hover img {
     transform: scale(1.05);
-    opacity: 0.95;
+    opacity: 0.9;
 }
 
 .card-content {
-    padding: 20px;
-    min-height: 180px;
+    padding: 25px;
 }
 
 .card-content h3 {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--primary-color);
+    margin-bottom: 10px;
 }
 
 .price {
     font-size: 1.8rem;
     font-weight: 800;
     color: var(--accent-color);
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-/* --- 6. Boutons --- */
 .btn {
     display: inline-block;
     background-color: var(--secondary-color);
     color: var(--white);
     padding: 12px 25px;
-    text-decoration: none;
     border-radius: 8px;
     font-weight: 600;
     text-align: center;
     border: none;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s, box-shadow 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-speed);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
 .btn:hover {
-    background-color: #0056b3;
-    transform: scale(1.03);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    background-color: #2563EB;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
 }
 
-.product-card .btn {
+.btn-add-cart {
     width: 100%;
-    padding: 10px;
     font-size: 1rem;
 }
 
-/* --- 7. Footer --- */
+/* =======================================================
+   DETAIL PRODUIT
+======================================================= */
+.product-detail-layout {
+    display: flex;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+.product-image-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+.product-image-container img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.product-details {
+    flex: 1;
+    min-width: 300px;
+}
+
+.options-group {
+    margin: 20px 0;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    padding: 5px 15px;
+    font-size: 1.2rem;
+    background-color: var(--light-gray);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background var(--transition-speed);
+}
+
+.quantity-btn:hover {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+/* =======================================================
+   CHECKOUT
+======================================================= */
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+    margin-top: 30px;
+}
+
+.checkout-form {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.checkout-form h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--light-gray);
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--light-gray);
+    font-size: 1rem;
+    transition: border var(--transition-speed);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+}
+
+.order-summary {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    height: fit-content;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--light-gray);
+}
+
+.summary-total {
+    border-top: 2px solid var(--secondary-color);
+    margin-top: 15px;
+    padding-top: 15px;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.btn-pay {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    margin-top: 20px;
+}
+
+/* =======================================================
+   FOOTER
+======================================================= */
 .main-footer {
     text-align: center;
-    padding: 30px 0;
+    padding: 40px 0;
     margin-top: auto;
     border-top: 1px solid var(--light-gray);
     background-color: var(--white);
-    color: #718096;
+    color: #6B7280;
     font-size: 0.95rem;
 }
 
-/* --- 8. Notifications --- */
-.cart-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: var(--secondary-color);
-    color: var(--white);
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: 600;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    opacity: 0;
-    animation: slideIn 0.5s forwards, fadeOut 0.5s 1.5s forwards;
-    z-index: 1000;
+/* =======================================================
+   RESPONSIVE
+======================================================= */
+@media(max-width:1024px){
+    .checkout-layout{ grid-template-columns: 1fr; }
+    .product-detail-layout{ flex-direction: column; gap: 30px; }
 }
 
-@keyframes slideIn {
-    from { opacity: 0; transform: translateX(50px); }
-    to { opacity: 1; transform: translateX(0); }
+@media(max-width:768px){
+    h1{ font-size:2.2rem; margin-bottom:30px; }
+    .header-container{ flex-direction: column; gap:15px; }
+    .main-nav ul{ justify-content:center; gap:20px; }
+    .product-grid{ grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:25px; }
 }
 
-@keyframes fadeOut {
-    to { opacity: 0; }
-}
-
-/* --- 9. Responsive --- */
-@media (max-width: 768px) {
-    h1 { font-size: 2.2rem; margin-bottom: 30px; }
-    .main-header > div { flex-direction: column; gap: 15px; }
-    .main-nav ul { gap: 15px; justify-content: center; }
-    .main-nav a { font-size: 0.9rem; }
-    .product-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-    .container { padding: 15px 0; }
-}
-
-@media (max-width: 480px) {
-    h1 { font-size: 1.8rem; }
-    .main-nav ul { flex-direction: column; gap: 10px; }
+@media(max-width:480px){
+    h1{ font-size:1.8rem; }
+    .product-card img{ height:200px; }
 }
