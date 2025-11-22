@@ -1,105 +1,103 @@
-const SHIPPING_COST = 0.00; // Frais de port gratuits
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Sécurisé - Mon Shop Pro</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-// Formatage de prix en euros
-function formatPrice(amount) {
-    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount);
-}
+<header class="main-header">
+    <div class="header-container">
+        <div class="logo"><a href="index.html">🛍️ Mon Shop Pro</a></div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="#" class="active">Paiement</a></li>
+                <li><a href="checkout.html" id="cart-link">Panier (0)</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-// Affiche le résumé de commande
-function renderCheckoutSummary() {
-    const cart = JSON.parse(localStorage.getItem('ecommerceCart')) || [];
-    const summaryContainer = document.getElementById('cart-items-summary');
-    const subtotalElement = document.getElementById('subtotal');
-    const finalTotalElement = document.getElementById('final-total');
-    const shippingElement = document.getElementById('shipping');
+<main class="container">
+    <h1>Finaliser ma commande</h1>
 
-    if (!summaryContainer || !subtotalElement || !finalTotalElement || !shippingElement) return;
+    <div class="checkout-layout">
+        <section class="checkout-form">
+            <form id="checkout-form">
+                <h2>1. Coordonnées de Livraison</h2>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="mon.adresse@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="address">Adresse complète</label>
+                    <input type="text" id="address" required placeholder="123 Rue de l'Exemple">
+                </div>
+                <div class="form-group">
+                    <label for="city">Ville</label>
+                    <input type="text" id="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="zip">Code Postal</label>
+                    <input type="text" id="zip" required>
+                </div>
+                <div class="form-group">
+                    <label for="country">Pays</label>
+                    <select id="country" required>
+                        <option value="fr">France</option>
+                        <option value="be">Belgique</option>
+                        <option value="ch">Suisse</option>
+                        <option value="ca">Canada</option>
+                    </select>
+                </div>
 
-    summaryContainer.innerHTML = '';
-    let subtotal = 0;
+                <h2>2. Informations de Paiement</h2>
+                <div class="form-group">
+                    <label for="card-number">Numéro de Carte</label>
+                    <input type="text" id="card-number" required placeholder="XXXX XXXX XXXX XXXX">
+                </div>
+                <div class="form-group">
+                    <label for="card-name">Nom sur la Carte</label>
+                    <input type="text" id="card-name" required>
+                </div>
+                <div class="form-group flex-row">
+                    <div>
+                        <label for="expiry">Expiration (MM/AA)</label>
+                        <input type="text" id="expiry" required placeholder="MM/AA">
+                    </div>
+                    <div>
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" required placeholder="XXX">
+                    </div>
+                </div>
+            </form>
+        </section>
 
-    if (cart.length === 0) {
-        summaryContainer.innerHTML = '<p style="padding:10px; text-align:center;">Votre panier est vide.</p>';
-        subtotalElement.textContent = formatPrice(0);
-        finalTotalElement.textContent = formatPrice(0);
-        shippingElement.textContent = formatPrice(0);
-        return;
-    }
+        <aside class="order-summary">
+            <h2>Votre Panier</h2>
+            <div id="cart-items-summary"></div>
+            <div class="summary-item">
+                <span>Sous-total</span><span id="subtotal">0,00 €</span>
+            </div>
+            <div class="summary-item">
+                <span>Frais de port</span><span id="shipping">Gratuit</span>
+            </div>
+            <div class="summary-total summary-item">
+                <span>Total à payer</span><span id="final-total">0,00 €</span>
+            </div>
+            <button type="submit" form="checkout-form" class="btn btn-pay">Payer la commande</button>
+        </aside>
+    </div>
+</main>
 
-    cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        subtotal += itemTotal;
+<footer class="main-footer">
+    <p>&copy; 2025 Mon E-commerce Pro. Paiement sécurisé.</p>
+</footer>
 
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('summary-item');
-        itemDiv.innerHTML = `
-            <span>${item.name} x ${item.quantity}</span>
-            <span>${formatPrice(itemTotal)}</span>
-        `;
-        summaryContainer.appendChild(itemDiv);
-    });
-
-    const finalTotal = subtotal + SHIPPING_COST;
-
-    subtotalElement.textContent = formatPrice(subtotal);
-    shippingElement.textContent = SHIPPING_COST > 0 ? formatPrice(SHIPPING_COST) : 'Gratuit';
-    finalTotalElement.textContent = formatPrice(finalTotal);
-
-    setupFormSubmission();
-}
-
-// Validation simple des champs
-function validateForm(form) {
-    const email = form.querySelector('#email').value.trim();
-    const address = form.querySelector('#address').value.trim();
-    const city = form.querySelector('#city').value.trim();
-    const zip = form.querySelector('#zip').value.trim();
-    const cardNumber = form.querySelector('#card-number').value.trim();
-    const cardName = form.querySelector('#card-name').value.trim();
-    const expiry = form.querySelector('#expiry').value.trim();
-    const cvv = form.querySelector('#cvv').value.trim();
-
-    if (!email || !address || !city || !zip || !cardNumber || !cardName || !expiry || !cvv) {
-        alert('Veuillez remplir tous les champs.');
-        return false;
-    }
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
-        alert('Email invalide.');
-        return false;
-    }
-    if (!/^\d{2}\/\d{2}$/.test(expiry)) {
-        alert('Format de date d\'expiration invalide (MM/AA).');
-        return false;
-    }
-    if (!/^\d{3,4}$/.test(cvv)) {
-        alert('CVV invalide.');
-        return false;
-    }
-    return true;
-}
-
-// Gestion du formulaire
-function setupFormSubmission() {
-    const form = document.getElementById('checkout-form');
-    const payButton = document.querySelector('.btn-pay');
-
-    if (!form || !payButton) return;
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        if (!validateForm(form)) return;
-
-        payButton.disabled = true;
-        payButton.textContent = 'Paiement en cours...';
-
-        // Simulation de paiement
-        setTimeout(() => {
-            alert('Paiement réussi ! Votre commande a été confirmée.');
-            localStorage.removeItem('ecommerceCart');
-            window.location.href = 'index.html';
-        }, 1500);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', renderCheckoutSummary);
+<script src="js/app.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>
