@@ -3,63 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Mon Shop Pro – Boutique Officielle</title>
-    <meta name="description" content="Découvrez nos meilleurs produits, promos et nouveautés sur Mon Shop Pro. Livraison rapide et qualité garantie.">
-
+    <title>Mon E-commerce Pro - Catalogue</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <!-- HEADER -->
     <header class="main-header">
-        <div>
+        <div> 
             <div class="logo">
                 <a href="index.html">🛍️ Mon Shop Pro</a>
             </div>
-
-            <nav class="main-nav" role="navigation">
+            <nav class="main-nav">
                 <ul>
                     <li><a href="index.html" class="active">Accueil</a></li>
-                    <li><a href="categories.html">Catégories</a></li>
-                    <li><a href="checkout.html" id="cart-link">Panier (0)</a></li>
-                    <li><a href="account.html">Mon Compte</a></li>
+                    <li><a href="#">Catégories</a></li>
+                    <li><a href="checkout.html" id="cart-link">Panier (0)</a></li> 
+                    <li><a href="#">Mon Compte</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Bienvenue sur Mon Shop Pro</h1>
-            <p>Produits de qualité, prix imbattables, livraison rapide.</p>
-            <a href="#product-grid" class="btn hero-btn">Voir nos produits</a>
-        </div>
-    </section>
-
+    
     <!-- MAIN CONTENT -->
     <main class="container">
+        <h1>Nos Produits Phares</h1>
         
-        <h2 class="section-title">Nos Produits Phares</h2>
-
-        <!-- Loader (s'affiche le temps que les produits se chargent) -->
-        <div id="loading" class="loading" style="display:none;">
-            Chargement des produits...
-        </div>
-
-        <!-- Zone où les produits seront injectés -->
         <section id="product-grid" class="product-grid">
-            <!-- Injecté par app.js -->
+            <!-- Les produits seront injectés par app.js -->
         </section>
     </main>
-
+    
     <!-- FOOTER -->
     <footer class="main-footer">
-        <p>&copy; 2024 Mon Shop Pro — Tous droits réservés.</p>
+        <p>&copy; 2025 Mon E-commerce Pro. Tous droits réservés.</p>
     </footer>
 
+    <!-- SCRIPTS -->
     <script src="js/app.js"></script>
+    <!-- product.js est optionnel, à inclure seulement si tu as ce fichier -->
+    <script src="js/product.js"></script>
 
 </body>
 </html>
